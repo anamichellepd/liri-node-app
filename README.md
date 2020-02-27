@@ -1,6 +1,9 @@
 # liri-node-app
 
 WHAT IS THE APP TRYING TO SOLVE?
+The app is getting information about what the user searches.
+
+GENERAL OVERVIEW:
 a user can type in:
 
 1. A band/artist
@@ -29,3 +32,28 @@ The computer will then search and output the following information:
    - Plot
    - Actors
    - (if none is given, "Mr. Nobody" will show up automatically)
+
+HOW TO RUN THE APP:
+
+1. User is prompted three questions where they need to input a response:
+   1. Band/artist name
+   2. Song name
+   3. Movie name
+2. The app will then connect to the APIs for BandsInTown, Spotify and OMDb to retrieve the specific information mentioned above.
+
+SCREENSHOTS
+
+LINK FOR DEPLOYED VERSION OF APP
+
+TECHNOLOGIES USED IN APP:
+
+- Bandsintown API
+- OMDB API
+- Spotify API
+- Axios
+- JSON package
+- JavaScript
+- Node
+
+MY ROLE IN THE APP DEVELOPMENT
+Creator from start to finish
