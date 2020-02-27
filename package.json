@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/anamichellepd/liri-node-app/issues"
   },
-  "homepage": "https://github.com/anamichellepd/liri-node-app#readme"
+  "homepage": "https://github.com/anamichellepd/liri-node-app#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
 }

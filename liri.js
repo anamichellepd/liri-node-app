@@ -6,3 +6,5 @@ var keys = require("./keys.js");
 
 //access keys information
 var spotify = new Spotify(keys.spotify);
+
+console.log(spotify);
