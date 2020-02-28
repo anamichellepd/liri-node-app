@@ -11,22 +11,30 @@ var spotify = keys.spotify;
 // NPM Package inquirer
 var inquirer = require("inquirer");
 
+var artistName = [];
+for (var i = 3; i < process.argv.length; ++i) {
+  artistName.push(process.argv[i]);
+}
+var argString = artistName.join("+");
+// process.argv[2].slice.apply(3).join("+");
 //run axios and after that, a .then
 axios
   .get(
-    "https://rest.bandsintown.com/artists/celine+dion/events?app_id=codingbootcamp"
+    "https://rest.bandsintown.com/artists/" +
+      artistName +
+      "/events?app_id=codingbootcamp"
   )
   //Creating a prompt for some questio:
   .then(function(response) {
-    // if ((process.argv[2] = "concert-this")) {
-    //   console.log(
-    //     "https://rest.bandsintown.com/artists/" +
-    //       process.argv.slice(3).join("+") +
-    //       "/events?app_id=codingbootcamp"
-    //   );
-    //   console.log("Venue: " + concertThis[0].venue.name);
-    // }
-    console.log(response[0].data[0].venue.name);
+    if ((process.argv[2] = "concert-this")) {
+      console.log(
+        "https://rest.bandsintown.com/artists/" +
+          process.argv.slice(3).join("+") +
+          "/events?app_id=codingbootcamp"
+      );
+      console.log("Venue: " + response.data[0].venue.name);
+    }
+    // console.log(response.data[0].venue.name);
   })
   .catch(function(error) {
     if (error.response) {
