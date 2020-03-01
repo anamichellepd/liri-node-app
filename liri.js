@@ -4,7 +4,8 @@ require("dotenv").config();
 //code required to import the keys.js file and store it in a variable
 var keys = require("./keys.js");
 var axios = require("axios");
-var spotify = keys.spotify;
+
+var Spotify = require("node-spotify-api");
 
 // NPM Package inquirer
 var inquirer = require("inquirer");
@@ -39,16 +40,21 @@ if (process.argv[2] === "concert-this") {
           ", " +
           response.data[0].venue.country
       );
-      // } else if (process.argv[2] === "spotify-this-song") {
-      //   console.log("IT'S WORKING");
-      // }
     });
 } else if (process.argv[2] === "spotify-this-song") {
+  var spotify = new Spotify(keys.spotify);
   var songName = [];
   for (var i = 3; i < process.argv.length; ++i) {
     songName.push(process.argv[i]);
   }
   var songString = songName.join("+");
-}
 
-console.log(JSON.stringify(result, null, 2));
+  spotify
+    .search({ type: "track", query: songString })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+}
