@@ -4,96 +4,51 @@ require("dotenv").config();
 //code required to import the keys.js file and store it in a variable
 var keys = require("./keys.js");
 var axios = require("axios");
-
-//access keys information
 var spotify = keys.spotify;
 
 // NPM Package inquirer
 var inquirer = require("inquirer");
 
-var artistName = [];
-for (var i = 3; i < process.argv.length; ++i) {
-  artistName.push(process.argv[i]);
-}
-var argString = artistName.join("+");
-// process.argv[2].slice.apply(3).join("+");
-//run axios and after that, a .then
-axios
-  .get(
-    "https://rest.bandsintown.com/artists/" +
-      artistName +
-      "/events?app_id=codingbootcamp"
-  )
-  //Creating a prompt for some questio:
-  .then(function(response) {
-    if ((process.argv[2] = "concert-this")) {
+//To get the Artist name inside of the link
+
+if (process.argv[2] === "concert-this") {
+  var artistName = [];
+  for (var i = 3; i < process.argv.length; ++i) {
+    artistName.push(process.argv[i]);
+  }
+  var artistString = artistName.join("+");
+  axios
+    .get(
+      "https://rest.bandsintown.com/artists/" +
+        artistString +
+        "/events?app_id=codingbootcamp"
+    )
+    .then(function(response) {
+      // if (process.argv[2] === "concert-this") {
+      console.log("Artist name: " + artistString);
+
+      // console.log(
+      //   "https://rest.bandsintown.com/artists/" +
+      //     process.argv.slice(3).join("+") +
+      //     "/events?app_id=codingbootcamp"
+      // );
+      console.log("Venue name: " + response.data[0].venue.name);
       console.log(
-        "https://rest.bandsintown.com/artists/" +
-          process.argv.slice(3).join("+") +
-          "/events?app_id=codingbootcamp"
+        "Venue location: " +
+          response.data[0].venue.city +
+          ", " +
+          response.data[0].venue.country
       );
-      console.log("Venue: " + response.data[0].venue.name);
-    }
-    // console.log(response.data[0].venue.name);
-  })
-  .catch(function(error) {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an object that comes back with details pertaining to the error that occurred.
-      console.log(error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log("Error", error.message);
-    }
-    console.log(error.config);
-  });
+      // } else if (process.argv[2] === "spotify-this-song") {
+      //   console.log("IT'S WORKING");
+      // }
+    });
+} else if (process.argv[2] === "spotify-this-song") {
+  var songName = [];
+  for (var i = 3; i < process.argv.length; ++i) {
+    songName.push(process.argv[i]);
+  }
+  var songString = songName.join("+");
+}
 
-//REQUIRE AXIOS AND THEN AXIOS.GET
-
-//.
-//.
-//.
-//.
-//.
-//.
-//.
-//.
-//.
-//.
-//.
-//.
-
-//THIS WAS MY ORIGINAL THOUGHT EARLIER
-//   .prompt([
-//     //ask the user what they would like to do with a list to choose from
-//     {
-//       type: "checkbox",
-//       message: "What are you looking for?",
-//       choices: ["Concert", "A song", "A movie", "Random"],
-//       name: "choice"
-//     }
-//   ])
-
-//   .then(function(response) {
-//     if ((response.choices = [0])) {
-//       console.log("it's working");
-//       inquirer
-//         .prompt([
-//           //ask for band/artist name
-//           {
-//             type: "input",
-//             message: "What is the name of the band/artist?",
-//             name: "artist"
-//           }
-//         ])
-//         .then(function(concert) {
-//           console.log(concert.artist);
-//         });
-//     }
-//   });
+console.log(JSON.stringify(result, null, 2));
