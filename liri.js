@@ -49,12 +49,13 @@ if (process.argv[2] === "concert-this") {
   }
   var songString = songName.join("+");
 
-  spotify
-    .search({ type: "track", query: songString })
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
+  spotify.search({ type: "track", query: songString, limit: 5 }, function(
+    err,
+    data
+  ) {
+    if (err) {
+      return console.log("Error occurred: " + err);
+    }
+    console.log(data);
+  });
 }
