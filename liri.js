@@ -44,10 +44,11 @@ if (process.argv[2] === "concert-this") {
 } else if (process.argv[2] === "spotify-this-song") {
   var spotify = new Spotify(keys.spotify);
   var songName = [];
-  for (var i = 3; i < process.argv.length; ++i) {
+  for (var i = 3; i < process.argv.length; i++) {
     songName.push(process.argv[i]);
   }
   var songString = songName.join("+");
+  var songNormal = songName.join(" ");
 
   spotify.search({ type: "track", query: songString, limit: 5 }, function(
     err,
@@ -56,6 +57,17 @@ if (process.argv[2] === "concert-this") {
     if (err) {
       return console.log("Error occurred: " + err);
     }
-    console.log(data);
+    console.log("Artist name: " + data.tracks.items[0].album.artists[0].name);
+    console.log("Song name: " + songNormal);
+    console.log(
+      "Listen to the song here: " + data.tracks.items[0].external_urls.spotify
+    );
+    console.log("The name of the album is: " + data.tracks.items[0].album.name);
   });
+  // } else if (process.argv[2] === "movie-this") {
+  //   var movieName = [];
+  //   for (var i = 3; i < process.argv.length; ++i) {
+  //     movieName.push(process.argv[i]);
+  //     var movieString = movieName.join("+");
+  //   }
 }
