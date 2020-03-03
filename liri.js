@@ -4,6 +4,7 @@ require("dotenv").config();
 //code required to import the keys.js file and store it in a variable
 var keys = require("./keys.js");
 var axios = require("axios");
+var fs = require("fs");
 
 var Spotify = require("node-spotify-api");
 
@@ -84,4 +85,17 @@ if (process.argv[2] === "concert-this") {
     console.log("Movie plot: " + response.data.Plot);
     console.log("Actors: " + response.data.Actors);
   });
+} else if (process.argv[2] === "do-what-it-says") {
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    if (error) {
+      return console.log(error);
+    }
+    console.log(data);
+  });
 }
+
+//creating a new, empty file using writeFile
+// fs.appendFile(log.txt, "data to append", function(err) {
+//   if (err) throw err;
+//   console.log(log.txt);
+// });
