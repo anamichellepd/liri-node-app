@@ -12,37 +12,35 @@ var Spotify = require("node-spotify-api");
 var inquirer = require("inquirer");
 
 //To get the Artist name inside of the link
-
-if (process.argv[2] === "concert-this") {
-  var artistName = [];
-  for (var i = 3; i < process.argv.length; ++i) {
-    artistName.push(process.argv[i]);
+function concert() {
+  if (process.argv[2] === "concert-this") {
+    var artistName = [];
+    for (var i = 3; i < process.argv.length; ++i) {
+      artistName.push(process.argv[i]);
+    }
+    var artistString = artistName.join("+");
+    function axios() {
+      axios
+        .get(
+          "https://rest.bandsintown.com/artists/" +
+            artistString +
+            "/events?app_id=codingbootcamp"
+        )
+        .then(function(response) {
+          console.log("Artist name: " + artistString);
+          console.log("Venue name: " + response.data[0].venue.name);
+          console.log(
+            "Venue location: " +
+              response.data[0].venue.city +
+              ", " +
+              response.data[0].venue.country
+          );
+        });
+    }
   }
-  var artistString = artistName.join("+");
-  axios
-    .get(
-      "https://rest.bandsintown.com/artists/" +
-        artistString +
-        "/events?app_id=codingbootcamp"
-    )
-    .then(function(response) {
-      // if (process.argv[2] === "concert-this") {
-      console.log("Artist name: " + artistString);
-
-      // console.log(
-      //   "https://rest.bandsintown.com/artists/" +
-      //     process.argv.slice(3).join("+") +
-      //     "/events?app_id=codingbootcamp"
-      // );
-      console.log("Venue name: " + response.data[0].venue.name);
-      console.log(
-        "Venue location: " +
-          response.data[0].venue.city +
-          ", " +
-          response.data[0].venue.country
-      );
-    });
-} else if (process.argv[2] === "spotify-this-song") {
+}
+concert();
+if (process.argv[2] === "spotify-this-song") {
   var spotify = new Spotify(keys.spotify);
   var songName = [];
 
@@ -86,16 +84,16 @@ if (process.argv[2] === "concert-this") {
     console.log("Actors: " + response.data.Actors);
   });
 } else if (process.argv[2] === "do-what-it-says") {
-  fs.readFile("random.txt", "utf8", function(error, data) {
+  fs.readFile("random.txt", function(error, data) {
     if (error) {
       return console.log(error);
     }
-    console.log(data);
+    var array = data.toString().split(",");
+    for (i in array) {
+      console.log(array[i]);
+    }
+    var fullString = "$ node liri.js " + data;
+
+    console.log("$ node liri.js " + data);
   });
 }
-
-//creating a new, empty file using writeFile
-// fs.appendFile(log.txt, "data to append", function(err) {
-//   if (err) throw err;
-//   console.log(log.txt);
-// });
