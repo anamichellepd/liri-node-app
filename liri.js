@@ -8,38 +8,34 @@ var fs = require("fs");
 
 var Spotify = require("node-spotify-api");
 
-// NPM Package inquirer
-var inquirer = require("inquirer");
-
 //To get the Artist name inside of the link
-function concert() {
-  if (process.argv[2] === "concert-this") {
-    var artistName = [];
-    for (var i = 3; i < process.argv.length; ++i) {
-      artistName.push(process.argv[i]);
-    }
-    var artistString = artistName.join("+");
-    function axios() {
-      axios
-        .get(
-          "https://rest.bandsintown.com/artists/" +
-            artistString +
-            "/events?app_id=codingbootcamp"
-        )
-        .then(function(response) {
-          console.log("Artist name: " + artistString);
-          console.log("Venue name: " + response.data[0].venue.name);
-          console.log(
-            "Venue location: " +
-              response.data[0].venue.city +
-              ", " +
-              response.data[0].venue.country
-          );
-        });
-    }
+
+if (process.argv[2] === "concert-this") {
+  var artistName = [];
+
+  for (var i = 3; i < process.argv.length; ++i) {
+    artistName.push(process.argv[i]);
   }
+  var artistString = artistName.join("+");
+
+  axios
+    .get(
+      "https://rest.bandsintown.com/artists/" +
+        artistString +
+        "/events?app_id=codingbootcamp"
+    )
+    .then(function(response) {
+      console.log("Artist name: " + artistString);
+      console.log("Venue name: " + response.data[0].venue.name);
+      console.log(
+        "Venue location: " +
+          response.data[0].venue.city +
+          ", " +
+          response.data[0].venue.country
+      );
+    });
 }
-concert();
+
 if (process.argv[2] === "spotify-this-song") {
   var spotify = new Spotify(keys.spotify);
   var songName = [];
